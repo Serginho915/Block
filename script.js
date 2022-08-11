@@ -1,61 +1,40 @@
-let finalPrice = 0;
-let potatoSize;
-let sauceType;
+let name = prompt(`Enter your name`);
+if (name) name = name.trim();
 
-let bound = prompt('hamburger or cheeseburger?');
-if(bound === 'cheeseburger'){
-    finalPrice = finalPrice + 15;
-    let doubleCheese = confirm(`Would you like to add double cheese?`);
-    if(doubleCheese){
-        finalPrice = finalPrice + 5;
-    }
-}
-else{
-    bound = 'hamburger'
-    finalPrice = finalPrice + 10;
-}
-    
-let potato = confirm(`Would you like potato?`);
-
-if(potato){
-     potatoSize = prompt(`Choose potato size: small/middle/big`);
-
-    if(potatoSize === 'middle'){
-        finalPrice = finalPrice + 15;
-    }
-    else if(potatoSize === 'big'){
-        finalPrice = finalPrice + 20;
-    }
-    else{
-        potatoSize = 'small';
-        finalPrice = finalPrice + 10;
-    }
-
-}
-let sauce = confirm(`Would you like a sauce?`);
-if(sauce){
-    sauceType = prompt(`Choose sauce: ketchup/mayo`);
-    if(sauceType === 'mayo'){
-        finalPrice = finalPrice + 3;
-    }
-    else{
-        finalPrice = finalPrice + 2;
-        sauceType = 'ketchup';
-    }
-
+while (!name) {
+    name = prompt(`Enter your name again`);
+    if (name) name = name.trim();
 }
 
-    document.write(`<h2>Your order:</h2>
-	<ul>
-		<li>Bound 🍔: ${bound}  </li>`);
-		
-       if(potato) 
-        document.write('<li> Potato 🍟: ${potatoSize}  </li> ');
-       if(sauce)  
-       document.write(' <li> Sauce 🧂: ${sauceType} </li> ');
-       document.write(`</ul>
-		Final price: ${finalPrice} `);
+let surname = prompt(`Enter your surname`);
+if (surname) surname = surname.trim();
 
+while (!surname) {
+    surname = prompt(`Enter your surname again`);
+    if (surname) surname = surname.trim();
+}
 
+let email = prompt(`Enter your email`);
+if (email) email = email.replaceAll(` `,``).toLowerCase();
 
+while (!email || !email.includes(`@`) || email.startsWith(`@`) || email.endsWith(`@`)) {
+    email = prompt(`Enter your email again`);
+    if (email) email = email.replaceAll(` `,``).toLowerCase();
+}
 
+let year = prompt(`Enter your year of birth`)
+if (year) year = year.replaceAll(` `,``);
+
+while (!year || isNaN(year)) {
+    year = prompt(`Enter your year of birth again`)
+    if (year) year = year.replaceAll(` `,``);
+}
+
+const thisYear = new Date().getFullYear();
+let age = thisYear - year;
+
+document.write(`<ul >
+    ${name && surname ? `<li>Full name: ${name} ${surname}</li>` : ``}
+    ${email ? `<li>Email: ${email}</li>` : ``}
+    ${year ? `<li>Age: ${age}</li>` : ``} 
+</ul>`)
