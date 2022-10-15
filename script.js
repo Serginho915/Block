@@ -10,7 +10,7 @@ const movingRight = () => {
     block.removeEventListener(`keyup`,movingRight);
     if((block.offsetLeft + block.offsetWidth)  > document.body.offsetWidth){
     
-        block.style.left = parseInt(block.style.left) - 300 + `px`;
+        block.style.left = parseInt(block.style.left) - STEP * 2 + `px`;
         block.innerHTML += `<p id =>BAM</p>`
          setTimeout(() => { 
             block.innerHTML = ``
@@ -29,7 +29,7 @@ const movingLeft = () => {
    
 
     if((block.offsetLeft + block.offsetWidth)  < block.offsetWidth){
-        block.style.left = parseInt(block.style.left) + 300 + `px`;
+        block.style.left = parseInt(block.style.left) + STEP * 2 + `px`;
         block.innerHTML += `<p id =>BAM</p>`
          setTimeout(() => { 
             block.innerHTML = ``
