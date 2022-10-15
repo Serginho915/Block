@@ -1,40 +1,91 @@
-let name = prompt(`Enter your name`);
-if (name) name = name.trim();
+const block = document.querySelector(`#block`);
 
-while (!name) {
-    name = prompt(`Enter your name again`);
-    if (name) name = name.trim();
+block.style.left = 0;
+block.style.top = 0;
+
+const STEP = 10;
+
+const movingRight = () => {
+    block.style.left = parseInt(block.style.left) + STEP + `px`;
+    block.removeEventListener(`keyup`,movingRight);
+    if((block.offsetLeft + block.offsetWidth)  > document.body.offsetWidth){
+    
+        block.style.left = parseInt(block.style.left) - 300 + `px`;
+        block.innerHTML += `<p id =>BAM</p>`
+         setTimeout(() => { 
+            block.innerHTML = ``
+        }, 1000)
+    }
 }
 
-let surname = prompt(`Enter your surname`);
-if (surname) surname = surname.trim();
+const movingBottom = () => {
+    block.style.top = parseInt(block.style.top) + STEP + `px`;
+    block.removeEventListener(`keyup`,movingBottom)
 
-while (!surname) {
-    surname = prompt(`Enter your surname again`);
-    if (surname) surname = surname.trim();
 }
 
-let email = prompt(`Enter your email`);
-if (email) email = email.replaceAll(` `,``).toLowerCase();
+const movingLeft = () => {
+    block.style.left = parseInt(block.style.left) - STEP + `px`;
+   
 
-while (!email || !email.includes(`@`) || email.startsWith(`@`) || email.endsWith(`@`)) {
-    email = prompt(`Enter your email again`);
-    if (email) email = email.replaceAll(` `,``).toLowerCase();
+    if((block.offsetLeft + block.offsetWidth)  < block.offsetWidth){
+        block.style.left = parseInt(block.style.left) + 300 + `px`;
+        block.innerHTML += `<p id =>BAM</p>`
+         setTimeout(() => { 
+            block.innerHTML = ``
+        }, 1000)
+    }
+    block.removeEventListener(`keyup`,movingLeft)
 }
 
-let year = prompt(`Enter your year of birth`)
-if (year) year = year.replaceAll(` `,``);
-
-while (!year || isNaN(year)) {
-    year = prompt(`Enter your year of birth again`)
-    if (year) year = year.replaceAll(` `,``);
+const movingTop = () => {
+    block.style.top = parseInt(block.style.top) - STEP + `px`;
+    block.removeEventListener(`keyup`,movingTop)
 }
 
-const thisYear = new Date().getFullYear();
-let age = thisYear - year;
+const jump = () => {
+    
+    setTimeout(() => {
+        block.style.top = parseInt(block.style.top) + 100 + `px`;
+        block.removeEventListener(` `,jump)
+    }, 500)
+    block.style.top = parseInt(block.style.top) - 100 + `px`;
+    
+}
 
-document.write(`<ul >
-    ${name && surname ? `<li>Full name: ${name} ${surname}</li>` : ``}
-    ${email ? `<li>Email: ${email}</li>` : ``}
-    ${year ? `<li>Age: ${age}</li>` : ``} 
-</ul>`)
+const sit = () => {
+    
+    setTimeout(() => {
+
+        block.style.width = 100 + `px`;
+        block.style.height = 100 + `px`;
+        block.style.top = parseInt(block.style.top)  - 50 + `px`;
+        block.removeEventListener(`Control`,sit)
+    }, 500)
+        block.style.top = parseInt(block.style.top)  + 50 + `px`;
+        block.style.width = 200 + `px`;
+        block.style.height = 50 + `px`;
+}    
+// document.addEventListener(`keydown`,e =>{
+//     console.log(e);
+// })
+
+const ACTIONS = {
+    17: sit,
+    32: jump,
+    37: movingLeft,
+    39: movingRight,
+
+}
+document.addEventListener(`keydown`, e =>  ACTIONS[e.keyCode]());
+// debugger;
+let blockRightCoordinate = block.offsetLeft + block.offsetWidth;
+let blockTopCoordinate = block.offsetTop+block.offsetHeight;
+let bodyWidth = document.body.offsetWidth;
+let bodyHeight = document.body.offsetHeight;
+
+
+
+
+
+
