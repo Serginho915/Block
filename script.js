@@ -10,7 +10,7 @@ const movingRight = () => {
     block.removeEventListener(`keyup`,movingRight);
     if((block.offsetLeft + block.offsetWidth)  > document.body.offsetWidth){
     
-        block.style.left = parseInt(block.style.left) - STEP * 2 + `px`;
+        block.style.left = parseInt(block.style.left) - 300 + `px`;
         block.innerHTML += `<p id =>BAM</p>`
          setTimeout(() => { 
             block.innerHTML = ``
@@ -20,6 +20,13 @@ const movingRight = () => {
 
 const movingBottom = () => {
     block.style.top = parseInt(block.style.top) + STEP + `px`;
+    if((block.offsetTop + block.offsetHeight)  > document.body.offsetHeight){
+        block.style.top = parseInt(block.style.top) - 300 + `px`;
+        block.innerHTML += `<p id =>BAM</p>`
+         setTimeout(() => { 
+            block.innerHTML = ``
+        }, 1000)
+    }
     block.removeEventListener(`keyup`,movingBottom)
 
 }
@@ -29,7 +36,7 @@ const movingLeft = () => {
    
 
     if((block.offsetLeft + block.offsetWidth)  < block.offsetWidth){
-        block.style.left = parseInt(block.style.left) + STEP * 2 + `px`;
+        block.style.left = parseInt(block.style.left) + 300 + `px`;
         block.innerHTML += `<p id =>BAM</p>`
          setTimeout(() => { 
             block.innerHTML = ``
@@ -40,6 +47,13 @@ const movingLeft = () => {
 
 const movingTop = () => {
     block.style.top = parseInt(block.style.top) - STEP + `px`;
+    if((block.offsetTop + block.offsetHeight)  < block.offsetHeight){
+        block.style.top = parseInt(block.style.top) + 300 + `px`;
+        block.innerHTML += `<p id =>BAM</p>`
+         setTimeout(() => { 
+            block.innerHTML = ``
+        }, 1000)
+    }
     block.removeEventListener(`keyup`,movingTop)
 }
 
@@ -63,18 +77,20 @@ const sit = () => {
         block.removeEventListener(`Control`,sit)
     }, 500)
         block.style.top = parseInt(block.style.top)  + 50 + `px`;
-        block.style.width = 200 + `px`;
-        block.style.height = 50 + `px`;
+        block.style.width = `140px`;
+        block.style.height = `75px`;
 }    
-// document.addEventListener(`keydown`,e =>{
-//     console.log(e);
-// })
+document.addEventListener(`keydown`,e =>{
+    console.log(e);
+})
 
 const ACTIONS = {
     17: sit,
     32: jump,
     37: movingLeft,
+    38 : movingTop,
     39: movingRight,
+    40: movingBottom
 
 }
 document.addEventListener(`keydown`, e =>  ACTIONS[e.keyCode]());
